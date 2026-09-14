@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "recipeId": "gpt-pc-bridge.windows",
+  "deploymentId": "11111111-2222-3333-4444-555555555555",
+  "deviceLabel": "My Laptop",
+  "deviceSlug": "my-laptop",
+  "localAlias": "ilynto-gpt-pc-bridge-my-laptop",
+  "tunnelId": "tunnel_0123456789abcdef0123456789abcdef",
+  "tunnelName": "ILYNTO GPT-PC Bridge - My Laptop"
+}

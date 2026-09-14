@@ -24,6 +24,31 @@ preferred_path:
   long_lived_supervision: tunnel-client_runtimes_connect
   orchestration: orchestration.fast-verified
 
+remote_tunnel_policy:
+  provider_owns_crud_and_runtime_lifecycle: true
+  preferred_command_family: tunnel-client_runtimes
+  default_display_name: "ILYNTO GPT-PC Bridge - <device-label>"
+  default_local_alias: "ilynto-gpt-pc-bridge-<device-slug>"
+  ownership_marker: managed-by=ilynto-playbook
+  recipe_marker: recipe=gpt-pc-bridge.windows
+  deployment_marker: deployment=<uuid>
+  reuse_requires:
+    - exact_recorded_tunnel_id
+    - exact_recorded_deployment_uuid
+    - provider_metadata_contains_ilynto_marker
+    - provider_metadata_contains_recipe_marker
+    - provider_metadata_contains_same_deployment_marker
+    - compatible_org_or_workspace_scope
+  never_reuse_based_only_on:
+    - same_openai_account
+    - same_workspace
+    - same_display_name
+    - existing_main_channel
+    - arbitrary_healthy_tunnel
+  create_when_same_deployment_cannot_be_proven: true
+  unrelated_existing_tunnels: leave_unchanged
+  remote_delete_on_uninstall: false
+
 public_template:
   path: templates/gpt-pc-bridge/mcp/
   status: LOCAL_E2E_PROVEN
@@ -41,6 +66,10 @@ public_template:
     - generic_secret_env_denial
     - control_root_write_denial
     - exceptional_persistence_command_denial
+
+public_deployment_identity_reference:
+  path: references/gpt-pc-bridge/deployment-identity.mjs
+  status: TESTED
 
 local_tunnel_integration:
   status: PROVEN
@@ -94,11 +123,13 @@ recommended_contracts:
   - protected_persistence_paths
   - exceptional_command_boundary
   - no_silent_route_fallback
+  - verified_tunnel_ownership_before_reuse
 
 human_boundaries:
   - openai_account_authentication
   - runtime_api_key_creation_or_permission_change
   - admin_api_key_creation_or_permission_change_if_tunnel_crud_is_needed
+  - material_org_or_workspace_scope_ambiguity
   - chatgpt_side_binding_when_interactive_account_ui_is_required
   - admin_or_uac_elevation
   - security_boundary_weakening
@@ -116,6 +147,7 @@ verification:
   - local_mcp_tool_discovery
   - local_mcp_scratch_round_trip
   - local_tunnel_client_stdio_e2e
+  - tunnel_ownership_metadata_matches_local_deployment
   - tunnel_runtime_process_running
   - tunnel_runtime_healthy
   - tunnel_runtime_ready
@@ -128,7 +160,7 @@ cleanup:
   - remove_generated_profile_if_requested
   - remove_generated_local_mcp_runtime_if_requested
   - revoke_runtime_key_if_environment_is_retired
-  - delete_tunnel_only_if_owner_intends_remote_resource_removal
+  - delete_tunnel_only_if_owner_explicitly_intends_remote_resource_removal
 
 not_yet_proven:
   - one_prompt_clean_room_install_on_unrelated_windows_pc

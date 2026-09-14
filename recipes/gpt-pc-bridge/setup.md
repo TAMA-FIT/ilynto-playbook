@@ -15,7 +15,7 @@ Collect, preferably in one aggregate read:
 - Git availability/version;
 - current `tunnel-client` availability/version/path;
 - whether an existing localhost MCP already provides the required capabilities;
-- whether an existing tunnel profile/runtime can be safely reused;
+- whether an existing **same-deployment** tunnel alias/runtime can be safely reused (never reuse an arbitrary Tunnel merely because it exists in the OpenAI account);
 - local port availability;
 - current startup/supervision mechanism if one already exists.
 
@@ -118,18 +118,50 @@ admin key   -> tunnel CRUD only
 
 Never reuse the admin key as the daemon credential merely for convenience.
 
-## Phase 6 — Create/reuse tunnel and Channel
+## Phase 6 — Provision the deployment Tunnel and Channel
 
-Prefer reuse when an existing intended tunnel is healthy and correctly scoped.
+Follow the normative policy in [`tunnel-provisioning.md`](tunnel-provisioning.md).
 
-When creation is needed, use the current supported provider UI/CLI. With the observed tunnel-client version, admin creation requires:
+The Tunnel is an OpenAI-side resource. The existence of any Tunnel in the user's account/workspace is **not** evidence that it belongs to this PC or this ILYNTO deployment.
 
-- a real Admin API key;
-- name;
-- description;
-- at least one organization or workspace attachment.
+### Production identity
 
-The observed CLI also warns that a newly created tunnel may need roughly 25–30 seconds before it is active/ready. Treat this as version-specific operational guidance, not a timeless SLA.
+Default remote display name:
+
+```text
+ILYNTO GPT-PC Bridge - <device-label>
+```
+
+Default local runtime alias:
+
+```text
+ilynto-gpt-pc-bridge-<device-slug>
+```
+
+Generate/persist one deployment UUID and include the ILYNTO ownership marker, recipe ID, deployment UUID, and device label in the Tunnel description. The public identity helper is `references/gpt-pc-bridge/deployment-identity.mjs`.
+
+### Reuse rule
+
+Automatically reuse a Tunnel only when all of the following are proven:
+
+- local deployment state contains its exact Tunnel ID and deployment UUID;
+- current provider metadata for that exact Tunnel ID contains `managed-by=ilynto-playbook`;
+- metadata contains `recipe=gpt-pc-bridge.windows`;
+- metadata contains the same deployment UUID;
+- organization/workspace scope remains compatible;
+- no conflicting active stdio runtime is using the Tunnel.
+
+A matching name, same account, same workspace, or an existing `main` Channel is **not enough**.
+
+### New deployment path
+
+When same-deployment ownership cannot be proven, leave unrelated existing Tunnels unchanged and create a new production Tunnel through the current supported provider lifecycle.
+
+For the currently observed full `tunnel-client`, prefer `runtimes connect` because it owns remote Tunnel alias creation/reuse, profile generation, stdio MCP binding, and managed local runtime supervision in one provider-owned path. Supply the production name/description and correct organization/workspace scope. If that native path cannot create the remote Tunnel under the current authorization setup, use the supported Platform Tunnel UI or `admin tunnels create` path.
+
+The currently observed provider behavior may require an Admin API key / Tunnels Manage authority for remote creation, while the long-lived runtime uses a separate runtime key with Tunnels Read + Use. Never put the Admin key into the daemon configuration.
+
+The observed provider also warns that a newly created Tunnel may need roughly 25–30 seconds before it is active/ready. Treat this as version-specific operational guidance. Recheck the **same** deployment instead of creating duplicates while propagation is pending.
 
 For the observed official client, the shortest stdio sample maps the command to `channel=main`:
 
@@ -249,7 +281,9 @@ A provisioning agent must be safe to rerun.
 On rerun:
 
 - detect existing MCP files/config/version;
-- detect existing tunnel profile/runtime;
+- detect existing tunnel profile/runtime and persisted deployment identity;
+- reuse only when exact same-deployment ownership is proven from current provider metadata;
+- leave unrelated account/workspace Tunnels unchanged;
 - verify rather than duplicate working resources;
 - repair only broken/missing components;
 - preserve user customizations unless incompatible with the security contract;

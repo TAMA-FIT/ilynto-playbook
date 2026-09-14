@@ -220,7 +220,7 @@ A provisioning agent following this recipe should attempt to automate:
 6. prefer stdio for a clean install when supported; otherwise bind HTTP only to loopback;
 7. test local MCP discovery and a harmless scratch round-trip (plus HTTP health when using the loopback HTTP variant);
 8. inspect the current `tunnel-client` binary help;
-9. create or reuse the tunnel only through supported OpenAI paths;
+9. provision the Tunnel through supported OpenAI paths using the production identity policy; reuse only when exact same-deployment ownership is proven;
 10. configure `channel=main` for the selected local MCP binding (stdio command preferred; loopback URL for the HTTP alternative);
 11. configure runtime credential reference without committing plaintext secrets;
 12. use supported long-lived supervision (`runtimes connect` when available/currently recommended);
@@ -268,6 +268,7 @@ The strongest public evidence available before that final clean-room promotion i
 - [`verify.md`](verify.md) — completion and clean-room acceptance gates
 - [`troubleshooting.md`](troubleshooting.md) — failure classification without hidden fallback
 - [`official-sources.md`](official-sources.md) — current provider source entry points and availability caveats
+- [`tunnel-provisioning.md`](tunnel-provisioning.md) — production Tunnel naming, creation, reuse, ownership, and cleanup contract
 - [`manifest.yaml`](manifest.yaml) — machine-readable recipe summary
 
 The tested portable stdio MCP template is [`../../templates/gpt-pc-bridge/mcp/`](../../templates/gpt-pc-bridge/mcp/README.md). Tunnel profile reference material is under [`../../templates/gpt-pc-bridge/tunnel/`](../../templates/gpt-pc-bridge/tunnel/README.md). The repository keeps the generic orchestration engine in one place under `references/orchestration/` rather than duplicating it inside the template.

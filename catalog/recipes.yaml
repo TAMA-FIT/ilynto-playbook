@@ -13,9 +13,18 @@ recipes:
       process, Git, runtime, and semantic-batch capabilities.
     preferred_clean_install_path:
       - portable stdio MCP template
-      - tunnel-client managed runtime
+      - production deployment identity
+      - tunnel-client runtimes connect
+      - provider-owned tunnel creation_or_verified_same_deployment_reuse
       - channel main
       - ChatGPT Plugin/App/binding
+    tunnel_identity:
+      display_name: "ILYNTO GPT-PC Bridge - <device-label>"
+      local_alias: "ilynto-gpt-pc-bridge-<device-slug>"
+      ownership_marker: managed-by=ilynto-playbook
+      recipe_marker: recipe=gpt-pc-bridge.windows
+      reuse_requires_exact_deployment_identity: true
+      arbitrary_existing_account_tunnel_reuse: false
     proven_components:
       - live ChatGPT to Secure MCP Tunnel to loopback HTTP MCP deployment
       - portable stdio MCP template initialize and tool discovery
@@ -26,6 +35,7 @@ recipes:
       - channel main mapping model
       - local filesystem_shell_process_git tool surface
       - orchestration fast-path patterns
+      - deterministic production tunnel identity helper and tests
     not_yet_proven_in_public_recipe:
       - clean-room one-prompt installation on an unrelated Windows PC
       - hosted tunnel provisioning on an unrelated OpenAI account using only the public recipe
@@ -35,6 +45,7 @@ recipes:
     primary_docs:
       - recipes/gpt-pc-bridge/README.md
       - recipes/gpt-pc-bridge/setup.md
+      - recipes/gpt-pc-bridge/tunnel-provisioning.md
       - recipes/gpt-pc-bridge/security.md
       - recipes/gpt-pc-bridge/verify.md
       - recipes/gpt-pc-bridge/troubleshooting.md
@@ -42,6 +53,8 @@ recipes:
     templates:
       - templates/gpt-pc-bridge/mcp/
       - templates/gpt-pc-bridge/tunnel/
+    reference_code:
+      - references/gpt-pc-bridge/deployment-identity.mjs
     evidence:
       - references/gpt-pc-bridge/local-tunnel-e2e.md
     orchestration_pattern: orchestration.fast-verified
