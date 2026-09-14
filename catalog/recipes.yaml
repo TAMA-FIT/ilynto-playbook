@@ -7,17 +7,23 @@ recipes:
     title: GPT-PC Bridge for Windows
     status: PARTIALLY_PROVEN
     path: recipes/gpt-pc-bridge/
+    bootstrap: recipes/gpt-pc-bridge/bootstrap.md
     goal: >-
       Connect ChatGPT to a user-owned Windows PC through OpenAI Secure MCP
       Tunnel so ordinary ChatGPT can invoke bounded local filesystem, shell,
       process, Git, runtime, and semantic-batch capabilities.
     preferred_clean_install_path:
-      - portable stdio MCP template
-      - production deployment identity
+      - inspect current Windows environment
+      - obtain trusted prerequisites only when missing
+      - build standalone runtime from public builder
+      - create or load production deployment identity
+      - verify local MCP
+      - resolve OpenAI Human Boundaries
       - tunnel-client runtimes connect
       - provider-owned tunnel creation_or_verified_same_deployment_reuse
       - channel main
       - ChatGPT Plugin/App/binding
+      - end_to_end_read_write_verify_cleanup
     tunnel_identity:
       display_name: "ILYNTO GPT-PC Bridge - <device-label>"
       local_alias: "ilynto-gpt-pc-bridge-<device-slug>"
@@ -30,6 +36,7 @@ recipes:
       - portable stdio MCP template initialize and tool discovery
       - portable stdio MCP scratch write verify cleanup
       - portable secret-path and control-root protection tests
+      - standalone runtime builder and self-contained output tests
       - official tunnel-client dev-proxy to stdio MCP local E2E
       - OpenAI Secure MCP Tunnel outbound transport
       - channel main mapping model
@@ -44,6 +51,7 @@ recipes:
       - universal compatibility across Windows versions and enterprise policy environments
     primary_docs:
       - recipes/gpt-pc-bridge/README.md
+      - recipes/gpt-pc-bridge/bootstrap.md
       - recipes/gpt-pc-bridge/setup.md
       - recipes/gpt-pc-bridge/tunnel-provisioning.md
       - recipes/gpt-pc-bridge/security.md
@@ -51,6 +59,7 @@ recipes:
       - recipes/gpt-pc-bridge/troubleshooting.md
       - recipes/gpt-pc-bridge/official-sources.md
     templates:
+      - templates/gpt-pc-bridge/build-runtime.mjs
       - templates/gpt-pc-bridge/mcp/
       - templates/gpt-pc-bridge/tunnel/
     reference_code:

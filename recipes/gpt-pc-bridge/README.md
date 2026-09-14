@@ -6,6 +6,10 @@ This recipe describes how to give ChatGPT a Codex-like local execution surface o
 
 The architecture itself is proven in a live deployment. The public recipe is marked `PARTIALLY_PROVEN` until it has also been reproduced from scratch on an unrelated clean Windows environment using only this repository.
 
+## Start here
+
+For an AI/Codex clean bootstrap, start with [`bootstrap.md`](bootstrap.md). It routes prerequisite discovery, standalone runtime generation, Tunnel provisioning, Human Boundaries, and final acceptance.
+
 ## Target user experience
 
 The eventual goal is intentionally simple:
@@ -263,6 +267,7 @@ The strongest public evidence available before that final clean-room promotion i
 
 ## Files in this recipe
 
+- [`bootstrap.md`](bootstrap.md) — shortest operational entry point for Codex/AI provisioning
 - [`setup.md`](setup.md) — environment-neutral provisioning sequence
 - [`security.md`](security.md) — threat/safety boundary
 - [`verify.md`](verify.md) — completion and clean-room acceptance gates
@@ -271,4 +276,4 @@ The strongest public evidence available before that final clean-room promotion i
 - [`tunnel-provisioning.md`](tunnel-provisioning.md) — production Tunnel naming, creation, reuse, ownership, and cleanup contract
 - [`manifest.yaml`](manifest.yaml) — machine-readable recipe summary
 
-The tested portable stdio MCP template is [`../../templates/gpt-pc-bridge/mcp/`](../../templates/gpt-pc-bridge/mcp/README.md). Tunnel profile reference material is under [`../../templates/gpt-pc-bridge/tunnel/`](../../templates/gpt-pc-bridge/tunnel/README.md). The repository keeps the generic orchestration engine in one place under `references/orchestration/` rather than duplicating it inside the template.
+The tested portable stdio MCP template is [`../../templates/gpt-pc-bridge/mcp/`](../../templates/gpt-pc-bridge/mcp/README.md). [`../../templates/gpt-pc-bridge/build-runtime.mjs`](../../templates/gpt-pc-bridge/build-runtime.mjs) produces a standalone runtime outside the public repo. Tunnel profile reference material is under [`../../templates/gpt-pc-bridge/tunnel/`](../../templates/gpt-pc-bridge/tunnel/README.md). The repository keeps the generic orchestration engine in one place under `references/orchestration/` rather than duplicating it inside the template.

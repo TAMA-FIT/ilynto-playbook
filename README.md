@@ -6,6 +6,8 @@ ILYNTO is **not** a runtime that every user must install, a proxy that every act
 
 > Knowledge is durable. Runtime is disposable. User state is not disposable.
 
+**Start here:** [`BOOTSTRAP.md`](BOOTSTRAP.md) gives an AI agent the shortest repository entry path.
+
 ## Why this exists
 
 Modern AI agents can already write code and call tools. The harder problem is turning that capability into a reliable real-world outcome without wasting model turns, adding unnecessary infrastructure, or weakening verification and safety.
@@ -113,7 +115,7 @@ ChatGPT
   -> Windows filesystem / shell / process / Git
 ```
 
-The repository includes a portable stdio MCP template under [`templates/gpt-pc-bridge/mcp/`](templates/gpt-pc-bridge/mcp/README.md), a tunnel configuration reference under [`templates/gpt-pc-bridge/tunnel/`](templates/gpt-pc-bridge/tunnel/README.md), and local official-tunnel-client E2E evidence under [`references/gpt-pc-bridge/`](references/gpt-pc-bridge/local-tunnel-e2e.md).
+The recipe starts at [`recipes/gpt-pc-bridge/bootstrap.md`](recipes/gpt-pc-bridge/bootstrap.md). The repository includes a portable stdio MCP template under [`templates/gpt-pc-bridge/mcp/`](templates/gpt-pc-bridge/mcp/README.md), a standalone runtime builder at [`templates/gpt-pc-bridge/build-runtime.mjs`](templates/gpt-pc-bridge/build-runtime.mjs), a tunnel configuration reference under [`templates/gpt-pc-bridge/tunnel/`](templates/gpt-pc-bridge/tunnel/README.md), and local official-tunnel-client E2E evidence under [`references/gpt-pc-bridge/`](references/gpt-pc-bridge/local-tunnel-e2e.md).
 
 The recipe remains **PARTIALLY_PROVEN**, not fully proven, until a separate unrelated Windows PC and OpenAI account reproduce the hosted-tunnel + ChatGPT-binding path from this public repository alone. Local MCP behavior and local `tunnel-client -> stdio MCP` integration are already covered by automated/reproducible tests.
 
@@ -121,6 +123,7 @@ The recipe remains **PARTIALLY_PROVEN**, not fully proven, until a separate unre
 
 Agents should prefer the catalog before reading the entire repository:
 
+- [`catalog/bootstrap.yaml`](catalog/bootstrap.yaml)
 - [`catalog/patterns.yaml`](catalog/patterns.yaml)
 - [`catalog/capabilities.yaml`](catalog/capabilities.yaml)
 - [`catalog/recipes.yaml`](catalog/recipes.yaml)

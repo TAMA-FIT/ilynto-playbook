@@ -1,0 +1,53 @@
+schema_version: 1
+catalog: ilynto-bootstrap
+updated: 2026-09-15
+
+entrypoint:
+  human_and_agent_doc: BOOTSTRAP.md
+  default_rule: read_catalog_then_minimum_recipe_material
+
+flow:
+  - resolve_user_goal
+  - read_catalogs
+  - select_smallest_matching_recipe_or_pattern
+  - inspect_fresh_environment
+  - prefer_existing_supported_capability
+  - generate_or_reuse_minimum_runtime_if_needed
+  - stop_only_at_human_boundary
+  - execute_bounded_semantic_work
+  - verify_actual_postcondition
+  - return_compact_terminal_evidence
+
+source_of_truth_order:
+  - current_observed_environment_and_provider_behavior
+  - current_ilynto_recipe_manifest_and_docs
+  - tested_public_reference_implementation
+  - historical_examples
+  - model_memory
+
+recipes:
+  gpt-pc-bridge.windows:
+    bootstrap: recipes/gpt-pc-bridge/bootstrap.md
+    manifest: recipes/gpt-pc-bridge/manifest.yaml
+    local_runtime_builder: templates/gpt-pc-bridge/build-runtime.mjs
+    tunnel_policy: recipes/gpt-pc-bridge/tunnel-provisioning.md
+    verification: recipes/gpt-pc-bridge/verify.md
+
+human_boundary:
+  examples:
+    - authentication_or_mfa
+    - privileged_authority_expansion
+    - security_weakening
+    - material_target_or_scope_ambiguity
+    - significant_spend
+    - external_publish_or_send
+    - irreversible_production_impact
+
+completion:
+  allowed_terminal_states:
+    - COMPLETE_VERIFIED
+    - SEMANTIC_DECISION_REQUIRED
+    - HUMAN_BOUNDARY
+    - POLICY_DENIED
+    - TERMINAL_FAILURE
+  unknown_evidence_value: UNOBSERVED

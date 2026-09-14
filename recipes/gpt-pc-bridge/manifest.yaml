@@ -3,6 +3,7 @@ id: gpt-pc-bridge.windows
 title: GPT-PC Bridge for Windows
 status: PARTIALLY_PROVEN
 observed_date: 2026-09-15
+bootstrap: recipes/gpt-pc-bridge/bootstrap.md
 
 objective: >-
   Give ChatGPT bounded local Windows execution capabilities through an outbound
@@ -23,6 +24,21 @@ preferred_path:
   default_channel: main
   long_lived_supervision: tunnel-client_runtimes_connect
   orchestration: orchestration.fast-verified
+
+standalone_runtime_builder:
+  path: templates/gpt-pc-bridge/build-runtime.mjs
+  status: TESTED
+  output_is_outside_playbook_repo: true
+  copies:
+    - portable_mcp_server
+    - windows_ops
+    - canonical_semantic_batch_engine
+    - deployment_identity_helper
+    - package_manifest_and_lock
+  tested:
+    - self_contained_runtime_tree
+    - repository_relative_import_rewrite
+    - reject_output_inside_public_playbook
 
 remote_tunnel_policy:
   provider_owns_crud_and_runtime_lifecycle: true
@@ -144,6 +160,7 @@ secrets:
   admin_key_rule: never_give_admin_key_to_long_lived_daemon
 
 verification:
+  - standalone_runtime_builder_test
   - local_mcp_tool_discovery
   - local_mcp_scratch_round_trip
   - local_tunnel_client_stdio_e2e
