@@ -4,14 +4,14 @@ This repository is designed to be read by AI agents as well as humans.
 
 ## Mission
 
-Use ILYNTO as a **knowledge source**, not as a mandatory middleware dependency. Read only the catalog entries, patterns, recipes, and reference code needed for the current user goal. Build or install the minimum missing execution layer in the user's own environment.
+Use ILYNTO as a **knowledge source**, not as a mandatory middleware dependency. Read only the catalog entries, patterns, recipes, guides, and reference code needed for the current user goal. Build or install the minimum missing execution layer in the user's own environment. After installation, use guides selectively as operating knowledge rather than automatically installing them as infrastructure.
 
 ## Source-of-truth order
 
 When implementing a recipe:
 
 1. Freshly observed target environment and current official provider behavior.
-2. Current ILYNTO recipe/pattern/manifest.
+2. Current ILYNTO recipe/pattern/guide/manifest.
 3. Tested ILYNTO reference implementation.
 4. Historical notes/examples.
 5. Model memory or assumptions.
@@ -115,6 +115,10 @@ Generated runtimes may be replaced. Preserve and explicitly migrate/back up non-
 - production configuration that cannot be safely reconstructed.
 
 Never commit real secrets or private state to this repository.
+
+## Post-install guide contract
+
+For workflow, continuity, recovery, release, performance, and local-memory questions, consult `catalog/guides.yaml` first. Read only the relevant guide/method. The public guide layer is a sanitized knowledge extraction from private ILYNTO; it is not evidence that every private runtime feature exists publicly. Preserve the method's durable invariants while adapting implementation details to the current environment.
 
 ## Contribution requirements
 

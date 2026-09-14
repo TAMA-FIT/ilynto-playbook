@@ -6,6 +6,8 @@ This recipe describes how to give ChatGPT a Codex-like local execution surface o
 
 The architecture itself is proven in a live deployment. The public recipe is marked `PARTIALLY_PROVEN` until it has also been reproduced from scratch on an unrelated clean Windows environment using only this repository.
 
+After installation, the same bridge can be combined with the optional [`../../guides/local-pc-memory-sharing.md`](../../guides/local-pc-memory-sharing.md) pattern so separate authorized ChatGPT/Codex sessions can resume from shared local project state. More reusable post-install techniques are indexed in [`../../guides/ilynto-methods.md`](../../guides/ilynto-methods.md).
+
 ## Start here
 
 For an AI/Codex clean bootstrap, start with [`bootstrap.md`](bootstrap.md). It routes prerequisite discovery, standalone runtime generation, Tunnel provisioning, Human Boundaries, and final acceptance.

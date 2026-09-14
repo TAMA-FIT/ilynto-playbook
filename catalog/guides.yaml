@@ -1,0 +1,86 @@
+schema_version: 1
+catalog: ilynto-guides
+updated: 2026-09-15
+
+usage_rule: >-
+  Guides are optional post-install knowledge. Select only the guide/method that
+  materially improves the current task. Do not turn the Playbook into a mandatory
+  runtime dependency.
+
+guides:
+  - id: local-pc-memory-sharing
+    title: Local PC Memory Sharing
+    path: guides/local-pc-memory-sharing.md
+    status: GUIDE
+    goal: >-
+      Share durable project state across ChatGPT/Codex/agent sessions through a
+      private local memory directory accessible from the authorized local bridge.
+    use_when:
+      - multiple_chats_need_project_continuity
+      - chatgpt_and_codex_need_shared_state
+      - exact_handoff_and_decisions_must_survive_sessions
+    core_artifacts:
+      - PROJECT_STATE.json
+      - CHECKPOINT.json
+      - HANDOFF.md
+      - DECISIONS.md_optional
+      - CANONICAL_STATE.json
+      - local_private_git
+    invariants:
+      - fresh_observable_state_outranks_memory
+      - memory_is_separate_from_disposable_runtime
+      - checkpoint_verified_semantic_outcomes_not_every_message
+      - canonical_manifest_binds_one_generation
+      - single_writer_per_physical_memory_root
+      - atomic_writes_and_exact_path_commits
+      - checkpoint_failure_does_not_replay_completed_work
+      - never_put_secret_values_in_memory
+
+  - id: ilynto-operating-methods
+    title: ILYNTO Operating Methods
+    path: guides/ilynto-methods.md
+    status: GUIDE
+    goal: >-
+      Reuse the maintainer's proven ILYNTO operating techniques after capability
+      setup without copying the private monolithic runtime.
+    method_index:
+      - id: fresh-state-before-mutation
+        keywords: [fresh_state, resume, drift, current_state]
+      - id: canonical-local-project-memory
+        keywords: [memory, checkpoint, handoff, continuity]
+      - id: one-intent-one-verified-outcome
+        keywords: [semantic_job, completion, verification]
+      - id: direct-guard-managed-routing
+        keywords: [routing, direct, guard, managed]
+      - id: semantic-batching
+        keywords: [batching, orchestration, latency, parallel_reads]
+      - id: risk-scoped-safety
+        keywords: [risk, human_boundary, authority]
+      - id: fixed-completion-predicates
+        keywords: [postcondition, verify, completion]
+      - id: source-state-binding
+        keywords: [sha, git_head, stale_write, provider_id]
+      - id: no-silent-authority-fallback
+        keywords: [fallback, authority, replan]
+      - id: bound-recovery
+        keywords: [recovery, retry, lease, stale_repair]
+      - id: decision-relevant-discovery
+        keywords: [research, discovery, architecture]
+      - id: adopt-before-replace
+        keywords: [adopt, existing_project, migration]
+      - id: persistent-state-vs-runtime
+        keywords: [runtime, persistent_state, reproducibility]
+      - id: secret-reference-transport
+        keywords: [credentials, secret_reference, env]
+      - id: compact-receipts
+        keywords: [evidence, receipt, context_compression]
+      - id: deterministic-continuation
+        keywords: [continuation, retry, polling]
+      - id: explicit-degradation
+        keywords: [degraded, fallback, capability_loss]
+      - id: verified-release
+        keywords: [release, publish, promotion, rollback]
+      - id: shared-capability-specialized-policy
+        keywords: [generic_tools, policy, adapter]
+      - id: chat-to-verified-outcome-optimization
+        keywords: [performance, latency, outer_calls]

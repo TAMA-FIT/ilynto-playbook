@@ -2,7 +2,7 @@
 
 **ILYNTO is an open AI capability engineering playbook.** It teaches AI systems how to connect to computers, APIs, tools, and services through the shortest verified execution path.
 
-ILYNTO is **not** a runtime that every user must install, a proxy that every action must pass through, or a replacement for official MCP/API/CLI integrations. The repository is the durable knowledge layer. An AI agent can read the relevant recipe or pattern, inspect the current environment, and create only the runtime components that are actually missing.
+ILYNTO is **not** a runtime that every user must install, a proxy that every action must pass through, or a replacement for official MCP/API/CLI integrations. The repository is the durable knowledge layer. An AI agent can read the relevant recipe, pattern, or guide, inspect the current environment, and create only the runtime components that are actually missing. The same Playbook remains useful **after installation** as a reference for the operating methods learned in the private ILYNTO system.
 
 > Knowledge is durable. Runtime is disposable. User state is not disposable.
 
@@ -86,6 +86,7 @@ Focused verification / evidence
 catalog/                 Machine-readable indexes for agents
 patterns/                Reusable architecture and execution patterns
   orchestration/         Fast verified intent-to-outcome patterns
+guides/                  Post-install workflows and ILYNTO operating methods
 recipes/                 End-to-end capability recipes
 references/              Sanitized evidence and reusable reference implementations
 templates/               Portable runtime/configuration templates
@@ -98,7 +99,7 @@ AGENTS.md                 Rules for AI agents reading/contributing to this repos
 
 The first public pattern is derived from a live local ILYNTO deployment that evolved through repeated latency, safety, and reproducibility work. The transferable mechanisms are documented under [`patterns/orchestration/`](patterns/orchestration/README.md), with sanitized executable reference code under [`references/orchestration/`](references/orchestration/).
 
-The public extraction intentionally excludes machine-specific paths, user identities, private project registry data, tunnel identifiers, credentials, encrypted credential blobs, private memory, and business data.
+The public extraction intentionally excludes machine-specific paths, user identities, private project registry data, tunnel identifiers, credentials, encrypted credential blobs, private memory, and business data. Sanitized post-install methods are indexed under [`guides/`](guides/README.md), including [`guides/ilynto-methods.md`](guides/ilynto-methods.md) and the optional [`guides/local-pc-memory-sharing.md`](guides/local-pc-memory-sharing.md).
 
 ## Current recipe: GPT-PC Bridge for Windows
 
@@ -124,6 +125,7 @@ The recipe remains **PARTIALLY_PROVEN**, not fully proven, until a separate unre
 Agents should prefer the catalog before reading the entire repository:
 
 - [`catalog/bootstrap.yaml`](catalog/bootstrap.yaml)
+- [`catalog/guides.yaml`](catalog/guides.yaml)
 - [`catalog/patterns.yaml`](catalog/patterns.yaml)
 - [`catalog/capabilities.yaml`](catalog/capabilities.yaml)
 - [`catalog/recipes.yaml`](catalog/recipes.yaml)

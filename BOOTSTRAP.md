@@ -8,7 +8,7 @@ Turn a user goal into a **verified outcome** by reading only the minimum relevan
 
 ## Agent bootstrap flow
 
-1. Read [`catalog/recipes.yaml`](catalog/recipes.yaml), [`catalog/capabilities.yaml`](catalog/capabilities.yaml), and [`catalog/patterns.yaml`](catalog/patterns.yaml).
+1. Read [`catalog/recipes.yaml`](catalog/recipes.yaml), [`catalog/capabilities.yaml`](catalog/capabilities.yaml), [`catalog/patterns.yaml`](catalog/patterns.yaml), and when the task is about post-install workflow/continuity, [`catalog/guides.yaml`](catalog/guides.yaml).
 2. Select the smallest recipe/pattern that matches the user's goal.
 3. Read that recipe's manifest and primary docs only.
 4. Inspect the real current environment before changing it.
@@ -31,6 +31,15 @@ ILYNTO knowledge
 ```
 
 Persistent user/project state must remain separate from disposable generated runtime.
+
+## After installation
+
+ILYNTO remains useful after capability setup. When the user asks for a development/automation workflow, continuity, recovery, release, performance, or local-memory pattern, consult [`catalog/guides.yaml`](catalog/guides.yaml) and read only the relevant guide/method. In particular:
+
+- [`guides/ilynto-methods.md`](guides/ilynto-methods.md) indexes reusable methods extracted from the private ILYNTO implementation.
+- [`guides/local-pc-memory-sharing.md`](guides/local-pc-memory-sharing.md) shows how authorized chats/agents can share private local project state through files + Git.
+
+Do not automatically install every guide as infrastructure. Guides are knowledge to apply selectively.
 
 ## GPT-PC Bridge shortcut
 
