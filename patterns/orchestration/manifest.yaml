@@ -1,0 +1,146 @@
+schema_version: 1
+id: orchestration.fast-verified
+title: Fast Verified Orchestration
+status: PROVEN
+observed_basis:
+  system: ILYNTO Native MCP
+  version: 0.16.9-fastpath-r8
+  observed_date: 2026-09-15
+
+objective:
+  primary: minimize_user_instruction_to_verified_outcome_latency
+  secondary:
+    - minimize_model_visible_outer_calls
+    - minimize_repeated_state_reads
+    - minimize_returned_bytes_without_losing_decision_material
+  never_trade_away:
+    - verification
+    - explicit_authority_scope
+    - state_or_source_fence_when_needed
+    - human_boundary
+    - secret_containment
+    - truthful_failure_evidence
+
+semantic_epochs:
+  known_or_read_only_target: 1
+  normal_unknown_development_target: 2
+  model:
+    - decision_material
+    - change_and_verify
+  extra_epoch_only_for:
+    - semantic_decision_required
+    - human_boundary
+    - policy_denied
+    - terminal_failure
+    - genuinely_new_external_state
+
+startup:
+  strategy: state_first
+  preferred_sequence:
+    - system_status
+    - aggregate_project_resume_if_applicable
+    - semantic_step
+  avoid:
+    - unconditional_process_listing
+    - repeated_health_checks_with_no_new_signal
+    - full_capability_catalog_dump_when_targeted_search_exists
+
+routing:
+  direct:
+    role: default_shortest_path
+    use_for:
+      - routine_reads
+      - routine_project_writes
+      - tests
+      - git
+      - process_execution_within_authorized_scope
+  guard:
+    role: exceptional_boundary_precheck_only
+    use_for:
+      - privileged_authority_expansion
+      - security_weakening
+      - significant_spend
+      - external_publish_send
+      - irreversible_production_destruction
+      - release_approval
+      - concurrent_writer_conflict
+  managed:
+    role: specialized_verified_job_path_not_default
+    use_for:
+      - architecture_preflight
+      - policy_or_conflict_governance
+      - managed_retry_or_repair_when_materially_useful
+      - release_or_publish_governance
+  automatic_cross_route_fallback: false
+
+semantic_steps:
+  - inspect
+  - change_verify
+  - finalize
+
+batching:
+  strategy: dag
+  fail_fast_default: true
+  parallelize:
+    automatically:
+      - independent_read_only_operations
+    explicitly:
+      - known_independent_commands
+  dependency_sources:
+    - explicit_depends_on
+    - result_references
+  mutation_rule: verification_must_follow_mutation
+  result_default: compact
+
+verification:
+  local_change:
+    - focused_test
+    - relevant_lint_or_typecheck
+    - diff_or_state_check
+  broad_or_security_contract_change:
+    - wider_regression
+    - fresh_start_or_reproduction_evidence_when_relevant
+  unknown_evidence: UNOBSERVED
+
+mechanical_work_stays_inside_job:
+  - stale_hash_refresh
+  - repeated_unchanged_read_elision
+  - deterministic_retry
+  - formatting_or_lint_repair
+  - deterministic_test_repair
+  - retest
+  - mechanical_git_verification
+
+telemetry:
+  measure:
+    - wall_time
+    - outer_calls
+    - semantic_batches
+    - nested_local_operations
+    - failed_batches
+    - parallelism
+    - operations_per_outer_call
+  privacy:
+    - do_not_record_full_arguments_by_default
+    - hash_session_or_project_identifiers_if_needed
+    - rotate_local_logs
+
+human_boundary:
+  principle: irreducible_human_authority_only
+  canonical_reasons:
+    - privileged_authority_expansion
+    - security_weakening
+    - significant_spend
+    - external_publish_send
+    - irreversible_production_destruction
+    - release_approval_required
+
+anti_patterns:
+  - one_outer_call_per_file
+  - one_outer_call_per_test
+  - repeated_git_status_polling
+  - repeated_remote_command_status_polling
+  - full_regression_after_every_micro_change
+  - transport_round_trip_per_local_step
+  - silent_authority_model_fallback
+  - new_orchestrator_for_a_problem_existing_boundary_can_absorb

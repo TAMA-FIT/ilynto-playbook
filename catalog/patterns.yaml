@@ -1,0 +1,34 @@
+schema_version: 1
+catalog: ilynto-patterns
+updated: 2026-09-15
+
+patterns:
+  - id: orchestration.fast-verified
+    status: PROVEN
+    path: patterns/orchestration/
+    goal: >-
+      Minimize user-instruction-to-verified-outcome latency while preserving
+      verification, source/state fences, security boundaries, and explicit
+      Human Boundaries.
+    use_when:
+      - an AI agent has multiple local/API capabilities and would otherwise orchestrate them one-by-one
+      - deterministic reads, edits, tests, Git operations, or retries can be bundled behind one semantic decision
+      - a generated runtime or MCP server needs a high-performance execution contract
+    avoid_when:
+      - a single native provider call already completes and verifies the whole outcome
+      - the task is purely conversational and needs no external execution
+    primary_docs:
+      - patterns/orchestration/README.md
+      - patterns/orchestration/state-acquisition.md
+      - patterns/orchestration/semantic-batching.md
+      - patterns/orchestration/routing.md
+      - patterns/orchestration/verification.md
+      - patterns/orchestration/telemetry.md
+      - patterns/orchestration/anti-patterns.md
+    reference_code:
+      - references/orchestration/semantic-batch.mjs
+      - references/orchestration/router.mjs
+    tests:
+      - tests/orchestration.test.mjs
+    evidence:
+      provenance: references/orchestration/live-provenance.md
