@@ -1,0 +1,47 @@
+schema_version: 1
+catalog: ilynto-recipes
+updated: 2026-09-15
+
+recipes:
+  - id: gpt-pc-bridge.windows
+    title: GPT-PC Bridge for Windows
+    status: PARTIALLY_PROVEN
+    path: recipes/gpt-pc-bridge/
+    goal: >-
+      Connect ChatGPT to a user-owned Windows PC through OpenAI Secure MCP
+      Tunnel so ordinary ChatGPT can invoke bounded local filesystem, shell,
+      process, Git, runtime, and semantic-batch capabilities.
+    preferred_clean_install_path:
+      - portable stdio MCP template
+      - tunnel-client managed runtime
+      - channel main
+      - ChatGPT Plugin/App/binding
+    proven_components:
+      - live ChatGPT to Secure MCP Tunnel to loopback HTTP MCP deployment
+      - portable stdio MCP template initialize and tool discovery
+      - portable stdio MCP scratch write verify cleanup
+      - portable secret-path and control-root protection tests
+      - official tunnel-client dev-proxy to stdio MCP local E2E
+      - OpenAI Secure MCP Tunnel outbound transport
+      - channel main mapping model
+      - local filesystem_shell_process_git tool surface
+      - orchestration fast-path patterns
+    not_yet_proven_in_public_recipe:
+      - clean-room one-prompt installation on an unrelated Windows PC
+      - hosted tunnel provisioning on an unrelated OpenAI account using only the public recipe
+      - ChatGPT binding and E2E read/write on an unrelated account and PC
+      - fully automated creation of every OpenAI account-side credential/permission boundary
+      - universal compatibility across Windows versions and enterprise policy environments
+    primary_docs:
+      - recipes/gpt-pc-bridge/README.md
+      - recipes/gpt-pc-bridge/setup.md
+      - recipes/gpt-pc-bridge/security.md
+      - recipes/gpt-pc-bridge/verify.md
+      - recipes/gpt-pc-bridge/troubleshooting.md
+      - recipes/gpt-pc-bridge/official-sources.md
+    templates:
+      - templates/gpt-pc-bridge/mcp/
+      - templates/gpt-pc-bridge/tunnel/
+    evidence:
+      - references/gpt-pc-bridge/local-tunnel-e2e.md
+    orchestration_pattern: orchestration.fast-verified

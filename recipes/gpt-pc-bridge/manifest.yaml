@@ -1,0 +1,137 @@
+schema_version: 1
+id: gpt-pc-bridge.windows
+title: GPT-PC Bridge for Windows
+status: PARTIALLY_PROVEN
+observed_date: 2026-09-15
+
+objective: >-
+  Give ChatGPT bounded local Windows execution capabilities through an outbound
+  OpenAI Secure MCP Tunnel using the shortest supported local MCP transport.
+
+architecture:
+  - ChatGPT
+  - ChatGPT_Plugin_or_equivalent_binding
+  - OpenAI_Secure_MCP_Tunnel
+  - tunnel_client
+  - local_MCP_stdio_preferred_or_loopback_HTTP
+  - Windows_capabilities
+
+preferred_path:
+  transport: openai_secure_mcp_tunnel
+  clean_install_mcp_transport: stdio
+  proven_alternative_transport: loopback_http_127_0_0_1
+  default_channel: main
+  long_lived_supervision: tunnel-client_runtimes_connect
+  orchestration: orchestration.fast-verified
+
+public_template:
+  path: templates/gpt-pc-bridge/mcp/
+  status: LOCAL_E2E_PROVEN
+  transport: stdio
+  tool_count: 22
+  uses_canonical_orchestration_reference: true
+  tested:
+    - mcp_initialize
+    - tool_discovery
+    - system_status
+    - semantic_batch_write_verify
+    - scratch_cleanup
+    - stale_sha_fence
+    - secret_path_denial
+    - generic_secret_env_denial
+    - control_root_write_denial
+    - exceptional_persistence_command_denial
+
+local_tunnel_integration:
+  status: PROVEN
+  evidence: references/gpt-pc-bridge/local-tunnel-e2e.md
+  method: tunnel-client_dev_proxy
+  production_tunnel_used: false
+  account_credentials_used: false
+  proves:
+    - official_tunnel_client_starts_stdio_mcp_child
+    - mcp_initialize_through_tunnel_client
+    - tool_discovery_through_tunnel_client
+    - status_call_through_tunnel_client
+    - semantic_batch_write_verify_cleanup_through_tunnel_client
+
+minimum_local_capabilities:
+  read:
+    - system.status
+    - runtime.info
+    - fs.stat
+    - fs.list
+    - fs.read
+    - fs.search
+    - process.list
+    - git.status
+    - git.diff
+  mutate:
+    - fs.write
+    - fs.mkdir
+    - fs.delete
+    - fs.move
+    - fs.copy
+    - shell.run
+    - exec.run
+    - process.start
+    - process.stop
+    - git.stage
+    - git.commit
+    - git.remote
+  orchestration:
+    - semantic.batch
+
+recommended_contracts:
+  - aggregate_state_or_project_resume
+  - semantic_dag_batching
+  - safe_read_parallelism
+  - source_hash_or_git_fences
+  - verify_after_mutation
+  - compact_evidence
+  - outer_call_telemetry
+  - protected_secret_paths
+  - protected_persistence_paths
+  - exceptional_command_boundary
+  - no_silent_route_fallback
+
+human_boundaries:
+  - openai_account_authentication
+  - runtime_api_key_creation_or_permission_change
+  - admin_api_key_creation_or_permission_change_if_tunnel_crud_is_needed
+  - chatgpt_side_binding_when_interactive_account_ui_is_required
+  - admin_or_uac_elevation
+  - security_boundary_weakening
+  - external_publish_or_significant_irreversible_actions_when_required
+
+secrets:
+  never_commit:
+    - runtime_api_key
+    - admin_api_key
+    - tunnel_account_specific_credentials
+  preferred_runtime_key_reference: environment_or_os_protected_secret_store
+  admin_key_rule: never_give_admin_key_to_long_lived_daemon
+
+verification:
+  - local_mcp_tool_discovery
+  - local_mcp_scratch_round_trip
+  - local_tunnel_client_stdio_e2e
+  - tunnel_runtime_process_running
+  - tunnel_runtime_healthy
+  - tunnel_runtime_ready
+  - chatgpt_binding_sees_expected_channel
+  - harmless_read_tool_e2e
+  - bounded_write_and_verify_e2e
+
+cleanup:
+  - stop_managed_tunnel_runtime
+  - remove_generated_profile_if_requested
+  - remove_generated_local_mcp_runtime_if_requested
+  - revoke_runtime_key_if_environment_is_retired
+  - delete_tunnel_only_if_owner_intends_remote_resource_removal
+
+not_yet_proven:
+  - one_prompt_clean_room_install_on_unrelated_windows_pc
+  - hosted_tunnel_account_setup_from_public_recipe_on_unrelated_account
+  - chatgpt_binding_and_e2e_on_unrelated_account_and_pc
+  - all_windows_enterprise_policy_variants

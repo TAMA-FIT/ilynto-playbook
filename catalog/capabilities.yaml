@@ -1,0 +1,49 @@
+schema_version: 1
+catalog: ilynto-capabilities
+updated: 2026-09-15
+
+capabilities:
+  - id: local.windows.control
+    title: Windows local execution
+    status: PROVEN
+    provides:
+      - filesystem_read_write
+      - shell_execution
+      - executable_execution
+      - process_inspection_and_control
+      - git_operations
+      - runtime_discovery
+      - semantic_batching
+    preferred_local_transport:
+      - stdio_mcp_managed_by_tunnel_client
+    proven_alternative_local_transport:
+      - loopback_http_mcp_127_0_0_1
+    remote_transport:
+      - openai_secure_mcp_tunnel
+    patterns:
+      - orchestration.fast-verified
+    recipe:
+      - gpt-pc-bridge.windows
+    templates:
+      - templates/gpt-pc-bridge/mcp/
+
+  - id: transport.openai.secure-mcp-tunnel
+    title: OpenAI Secure MCP Tunnel
+    status: PROVEN
+    purpose: >-
+      Connect a local/private MCP server to the OpenAI control plane through an
+      outbound tunnel without directly publishing the local MCP server.
+    observed_client_version: 0.0.14
+    preferred_clean_install_binding:
+      type: stdio_command
+      channel: main
+    proven_alternative_binding:
+      type: loopback_http_mcp_url
+    preferred_long_lived_supervision: tunnel-client_runtimes_connect
+    local_integration_evidence:
+      - references/gpt-pc-bridge/local-tunnel-e2e.md
+    verification:
+      - tunnel-client_runtimes_status
+      - process_running
+      - healthy
+      - ready

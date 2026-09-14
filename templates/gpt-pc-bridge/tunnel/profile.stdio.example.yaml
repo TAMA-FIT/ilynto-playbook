@@ -1,0 +1,26 @@
+# Reference only. Prefer `tunnel-client runtimes connect` / `init` so the current
+# installed client writes a version-correct profile. Never commit real keys.
+config_version: 1
+
+control_plane:
+  base_url: "https://api.openai.com"
+  tunnel_id: "tunnel_REPLACE_WITH_USER_OWNED_ID"
+  api_key: "env:CONTROL_PLANE_API_KEY"
+
+health:
+  listen_addr: "127.0.0.1:0"
+  # Set url_file to a user-local path when another process needs to discover
+  # the dynamically selected local admin/health URL.
+  # url_file: "C:/Users/<user>/AppData/Local/GPT-PC-Bridge/tunnel-health.url"
+
+admin_ui:
+  open_browser: false
+
+log:
+  level: info
+  format: json
+
+mcp:
+  commands:
+    - channel: main
+      command: "node C:/ABSOLUTE/PATH/TO/generated-runtime/server.mjs"

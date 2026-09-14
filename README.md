@@ -81,26 +81,57 @@ Focused verification / evidence
 ## Repository map
 
 ```text
-catalog/                 Machine-readable index for agents
+catalog/                 Machine-readable indexes for agents
 patterns/                Reusable architecture and execution patterns
   orchestration/         Fast verified intent-to-outcome patterns
-references/              Sanitized reference implementations derived from proven systems
-recipes/                 End-to-end task recipes (added incrementally)
+recipes/                 End-to-end capability recipes
+references/              Sanitized evidence and reusable reference implementations
+templates/               Portable runtime/configuration templates
 skills/                  Agent-consumable skills (added incrementally)
-templates/               Reusable generated-runtime templates (added incrementally)
-tests/                   Tests for reference implementations
+tests/                   Reference and clean-room-oriented tests
 AGENTS.md                 Rules for AI agents reading/contributing to this repository
 ```
 
-## First extracted system: fast verified orchestration
+## Fast verified orchestration
 
 The first public pattern is derived from a live local ILYNTO deployment that evolved through repeated latency, safety, and reproducibility work. The transferable mechanisms are documented under [`patterns/orchestration/`](patterns/orchestration/README.md), with sanitized executable reference code under [`references/orchestration/`](references/orchestration/).
 
 The public extraction intentionally excludes machine-specific paths, user identities, private project registry data, tunnel identifiers, credentials, encrypted credential blobs, private memory, and business data.
 
-## Status
+## Current recipe: GPT-PC Bridge for Windows
 
-This repository is being built evidence-first. A capability is marked proven only when it has a real implementation/evidence basis. Untested ideas must be labeled as proposals rather than presented as working instructions.
+[`recipes/gpt-pc-bridge/`](recipes/gpt-pc-bridge/README.md) describes how an AI provisioning agent can give ChatGPT bounded local Windows capabilities through OpenAI Secure MCP Tunnel.
+
+The current clean-install preference is:
+
+```text
+ChatGPT
+  -> supported Plugin/App/binding
+  -> Secure MCP Tunnel, channel=main
+  -> tunnel-client managed runtime
+  -> local stdio MCP
+  -> Windows filesystem / shell / process / Git
+```
+
+The repository includes a portable stdio MCP template under [`templates/gpt-pc-bridge/mcp/`](templates/gpt-pc-bridge/mcp/README.md), a tunnel configuration reference under [`templates/gpt-pc-bridge/tunnel/`](templates/gpt-pc-bridge/tunnel/README.md), and local official-tunnel-client E2E evidence under [`references/gpt-pc-bridge/`](references/gpt-pc-bridge/local-tunnel-e2e.md).
+
+The recipe remains **PARTIALLY_PROVEN**, not fully proven, until a separate unrelated Windows PC and OpenAI account reproduce the hosted-tunnel + ChatGPT-binding path from this public repository alone. Local MCP behavior and local `tunnel-client -> stdio MCP` integration are already covered by automated/reproducible tests.
+
+## Machine-readable entry points
+
+Agents should prefer the catalog before reading the entire repository:
+
+- [`catalog/patterns.yaml`](catalog/patterns.yaml)
+- [`catalog/capabilities.yaml`](catalog/capabilities.yaml)
+- [`catalog/recipes.yaml`](catalog/recipes.yaml)
+
+This keeps the prompt small: the agent can identify the relevant recipe/pattern first, then read only the required files.
+
+## Status discipline
+
+This repository is built evidence-first. A capability is marked proven only when it has a real implementation/evidence basis. Untested ideas are labeled as proposals or partial proofs rather than presented as working instructions.
+
+Provider-specific behavior can change independently of this repository. Recipes separate durable architecture from provider-version facts and direct provisioning agents to current official documentation or installed CLI help where appropriate.
 
 ## License
 

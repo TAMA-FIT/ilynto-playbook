@@ -16,4 +16,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm test
+          cache: npm
+          cache-dependency-path: templates/gpt-pc-bridge/mcp/package-lock.json
+      - name: Install GPT-PC Bridge template dependencies
+        run: npm ci --ignore-scripts --prefix templates/gpt-pc-bridge/mcp
+      - name: Run reference and clean-room MCP tests
+        run: npm test
