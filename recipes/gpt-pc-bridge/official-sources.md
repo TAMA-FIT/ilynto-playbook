@@ -36,6 +36,12 @@ tunnel-client runtimes status --help
 
 ## ChatGPT custom MCP / app availability
 
+Current official `tunnel-client` connector documentation identifies this ChatGPT connector settings entry point:
+
+```text
+https://chatgpt.com/#settings/Connectors
+```
+
 Current OpenAI Help Center reference:
 
 ```text

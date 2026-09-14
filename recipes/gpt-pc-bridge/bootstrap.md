@@ -170,15 +170,17 @@ If a new remote Tunnel is still propagating, wait/recheck the same Tunnel. Do no
 
 ## 10. Bind ChatGPT
 
-Only after the managed runtime is ready:
+Only after the managed runtime is ready, follow [`chatgpt-binding.md`](chatgpt-binding.md).
 
-- open the account's supported ChatGPT connector/Plugin/App binding surface;
-- choose Tunnel connection;
-- select the exact newly provisioned/verified Tunnel (or use its explicit Tunnel ID where supported);
-- select/use the expected `main` Channel;
-- enable only the permissions the user intends.
+The provisioning agent must hand the user the exact:
 
-Treat account UI interaction as a Human Boundary when it cannot be safely automated.
+- ChatGPT connector settings URL;
+- current official Help URL;
+- newly provisioned/verified Tunnel display name;
+- exact Tunnel ID;
+- expected `main` Channel.
+
+Do not ask the user to guess among unrelated Tunnels in the same OpenAI account/workspace. Treat interactive account UI as a Human Boundary when it cannot be safely automated.
 
 ## 11. End-to-end acceptance
 

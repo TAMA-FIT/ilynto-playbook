@@ -141,6 +141,17 @@ recommended_contracts:
   - no_silent_route_fallback
   - verified_tunnel_ownership_before_reuse
 
+chatgpt_binding_handoff:
+  path: recipes/gpt-pc-bridge/chatgpt-binding.md
+  current_settings_url: https://chatgpt.com/#settings/Connectors
+  required_handoff_fields:
+    - exact_tunnel_name
+    - exact_tunnel_id
+    - channel_main
+    - current_chatgpt_settings_url
+    - current_official_help_url
+  completion_requires_chatgpt_e2e: true
+
 human_boundaries:
   - openai_account_authentication
   - runtime_api_key_creation_or_permission_change

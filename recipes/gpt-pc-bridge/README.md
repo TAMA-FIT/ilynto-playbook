@@ -275,6 +275,7 @@ The strongest public evidence available before that final clean-room promotion i
 - [`verify.md`](verify.md) — completion and clean-room acceptance gates
 - [`troubleshooting.md`](troubleshooting.md) — failure classification without hidden fallback
 - [`official-sources.md`](official-sources.md) — current provider source entry points and availability caveats
+- [`chatgpt-binding.md`](chatgpt-binding.md) — final ChatGPT Plugin/App/connector handoff, current links, exact Tunnel/Channel selection, and E2E acceptance
 - [`tunnel-provisioning.md`](tunnel-provisioning.md) — production Tunnel naming, creation, reuse, ownership, and cleanup contract
 - [`manifest.yaml`](manifest.yaml) — machine-readable recipe summary
 
