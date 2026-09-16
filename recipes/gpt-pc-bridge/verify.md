@@ -1,10 +1,10 @@
-# GPT-PC Bridge — Verification Gates
+# GPT-PC Bridge 窶・Verification Gates
 
 Status: **PARTIALLY_PROVEN**
 
 Do not report setup complete because files were created or a tunnel command returned zero. Completion requires evidence at every layer.
 
-## Gate A — Local MCP
+## Gate A 窶・Local MCP
 
 Required:
 
@@ -33,7 +33,7 @@ Suggested evidence receipt:
 }
 ```
 
-## Gate B — Tunnel runtime
+## Gate B 窶・Tunnel runtime
 
 Use the installed tunnel-client's current supported status command.
 
@@ -51,7 +51,7 @@ Require the current equivalent of:
 
 If the runtime is launched but not ready, report **not complete** and diagnose. Do not create duplicate tunnels simply because readiness is delayed.
 
-## Gate C — Channel mapping
+## Gate C 窶・Channel mapping
 
 Confirm the active tunnel profile maps the intended Channel to the intended local MCP binding: the stdio command in the preferred clean-install path, or the loopback MCP URL in the HTTP alternative.
 
@@ -62,17 +62,18 @@ Check:
 - no stale second profile unintentionally pointing to another MCP;
 - no plaintext runtime/admin secret embedded in committed/public profile material.
 
-## Gate D — ChatGPT binding
+## Gate D 窶・ChatGPT binding
 
 While the tunnel runtime is healthy/ready:
 
 - create/enable the supported ChatGPT Plugin/connector/binding;
-- select the expected Channel;
+- select the exact expected Tunnel (or paste its exact Tunnel ID);
+- if the current UI exposes a Channel selector, select `main`; otherwise treat `main` as tunnel-client routing state, not an extra UI step;
 - confirm the binding exposes the intended MCP tool surface.
 
-Do not treat a visible Channel name alone as proof that the local MCP behind it is healthy.
+Do not treat a visible Tunnel/Channel label alone as proof that the local MCP behind it is healthy.
 
-## Gate E — End-to-end harmless read
+## Gate E 窶・End-to-end harmless read
 
 From ChatGPT through the actual binding:
 
@@ -86,7 +87,7 @@ This proves:
 ChatGPT -> binding -> tunnel -> tunnel-client -> local MCP -> Windows read
 ```
 
-## Gate F — End-to-end bounded mutation
+## Gate F 窶・End-to-end bounded mutation
 
 Use a unique temporary path under a scratch location, not a production/project file.
 
@@ -107,7 +108,7 @@ cleanup verified
 
 If any postcondition is unobserved, do not report full completion.
 
-## Gate G — Git read path
+## Gate G 窶・Git read path
 
 If Git is part of the exposed capability surface:
 
@@ -116,7 +117,7 @@ If Git is part of the exposed capability surface:
 - verify repository identity/root;
 - do not create a commit merely to test Git unless using an isolated disposable repo.
 
-## Gate H — Security smoke
+## Gate H 窶・Security smoke
 
 Without exposing a real secret, test representative denial behavior using synthetic protected/scratch fixtures when possible.
 
@@ -128,7 +129,7 @@ Verify:
 - logs/telemetry do not contain runtime/admin API key values;
 - repository `git status` is clean of credentials/generated secret files.
 
-## Gate I — Restart/logon survival
+## Gate I 窶・Restart/logon survival
 
 If persistent use is a requirement:
 
@@ -139,7 +140,7 @@ If persistent use is a requirement:
 
 A one-session demo is not equivalent to a persistent bridge.
 
-## Gate J — Orchestration quality
+## Gate J 窶・Orchestration quality
 
 After connectivity works, verify the bridge is not forcing primitive serial choreography.
 
@@ -186,7 +187,7 @@ If any required field cannot be observed, put it under `unobserved` and do not s
 
 ## Clean-room promotion criterion
 
-The public recipe can change from `PARTIALLY_PROVEN` to `PROVEN` when a machine not containing the maintainer's private ILYNTO installation can reproduce Gates A–I using only:
+The public recipe can change from `PARTIALLY_PROVEN` to `PROVEN` when a machine not containing the maintainer's private ILYNTO installation can reproduce Gates A窶的 using only:
 
 - this public repository;
 - current supported OpenAI/tunnel-client distribution/access;

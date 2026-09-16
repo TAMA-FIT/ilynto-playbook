@@ -212,7 +212,9 @@ mcp:
       url: "http://127.0.0.1:<mcp-port>/mcp"
 ```
 
-The user's ChatGPT-side Plugin/binding can then select the exposed Channel. UI labels may change over time, so do not automate against screenshots when a supported provider interface is available.
+`channel=main` is a logical MCP routing binding declared by `tunnel-client`; it is not a separate OpenAI account resource that must be created through another CRUD step. For the default stdio form, an unqualified `--mcp-command` binds to `main`, and the official stdio sample states that the command is always bound to `channel=main`.
+
+Current official ChatGPT connector guidance is Tunnel-centric: choose Connection: Tunnel, then select the exact Tunnel or paste its Tunnel ID. If the current UI also exposes a Channel field, use `main`; otherwise no separate Channel-selection step is required. UI labels may change over time, so do not automate against screenshots when a supported provider interface is available.
 
 ## What Codex should automate
 
@@ -269,14 +271,14 @@ The strongest public evidence available before that final clean-room promotion i
 
 ## Files in this recipe
 
-- [`bootstrap.md`](bootstrap.md) — shortest operational entry point for Codex/AI provisioning
-- [`setup.md`](setup.md) — environment-neutral provisioning sequence
-- [`security.md`](security.md) — threat/safety boundary
-- [`verify.md`](verify.md) — completion and clean-room acceptance gates
-- [`troubleshooting.md`](troubleshooting.md) — failure classification without hidden fallback
-- [`official-sources.md`](official-sources.md) — current provider source entry points and availability caveats
-- [`chatgpt-binding.md`](chatgpt-binding.md) — final ChatGPT Plugin/App/connector handoff, current links, exact Tunnel/Channel selection, and E2E acceptance
-- [`tunnel-provisioning.md`](tunnel-provisioning.md) — production Tunnel naming, creation, reuse, ownership, and cleanup contract
-- [`manifest.yaml`](manifest.yaml) — machine-readable recipe summary
+- [`bootstrap.md`](bootstrap.md) 窶・shortest operational entry point for Codex/AI provisioning
+- [`setup.md`](setup.md) 窶・environment-neutral provisioning sequence
+- [`security.md`](security.md) 窶・threat/safety boundary
+- [`verify.md`](verify.md) 窶・completion and clean-room acceptance gates
+- [`troubleshooting.md`](troubleshooting.md) 窶・failure classification without hidden fallback
+- [`official-sources.md`](official-sources.md) 窶・current provider source entry points and availability caveats
+- [`chatgpt-binding.md`](chatgpt-binding.md) 窶・final ChatGPT Plugin/App/connector handoff, current links, exact Tunnel/Channel selection, and E2E acceptance
+- [`tunnel-provisioning.md`](tunnel-provisioning.md) 窶・production Tunnel naming, creation, reuse, ownership, and cleanup contract
+- [`manifest.yaml`](manifest.yaml) 窶・machine-readable recipe summary
 
 The tested portable stdio MCP template is [`../../templates/gpt-pc-bridge/mcp/`](../../templates/gpt-pc-bridge/mcp/README.md). [`../../templates/gpt-pc-bridge/build-runtime.mjs`](../../templates/gpt-pc-bridge/build-runtime.mjs) produces a standalone runtime outside the public repo. Tunnel profile reference material is under [`../../templates/gpt-pc-bridge/tunnel/`](../../templates/gpt-pc-bridge/tunnel/README.md). The repository keeps the generic orchestration engine in one place under `references/orchestration/` rather than duplicating it inside the template.

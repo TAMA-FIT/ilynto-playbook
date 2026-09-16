@@ -1,10 +1,10 @@
-# GPT-PC Bridge — ChatGPT Binding Handoff
+# GPT-PC Bridge 驕ｯ・ｶ郢晢ｽｻChatGPT Binding Handoff
 
 Status: **PROVIDER UI / ACCOUNT BOUNDARY**
 
 Use this document only after the local MCP and the exact managed Tunnel runtime are proven ready.
 
-The goal is to make the final human step deterministic: the provisioning agent should tell the user **which Tunnel was created, which Channel to select, and where to open the current ChatGPT connector/app settings**.
+The goal is to make the final human step deterministic: the provisioning agent should tell the user **which Tunnel was created, that the local MCP is bound to `channel=main`, and where to open the current ChatGPT connector/app settings**. Current official ChatGPT guidance selects the Tunnel (or Tunnel ID); a separate Channel choice is only needed if the current UI explicitly exposes one.
 
 ## 1. Preconditions
 
@@ -30,7 +30,7 @@ https://chatgpt.com/#settings/Connectors
 OpenAI Tunnel management
 https://platform.openai.com/settings/organization/tunnels
 
-OpenAI Help — Developer mode and MCP apps in ChatGPT
+OpenAI Help 驕ｯ・ｶ郢晢ｽｻDeveloper mode and MCP apps in ChatGPT
 https://help.openai.com/en/articles/12584461-developer-mode-and-mcp-apps-in-chatgpt
 ```
 
@@ -56,13 +56,13 @@ Then give the user a short action sequence appropriate to the current UI:
 1. Open the ChatGPT connector/app creation surface.
 2. Create a new custom Plugin/App/connector binding.
 3. Give it a recognizable name, normally matching the device/use case.
-4. Choose the exact Tunnel named in the handoff (or exact Tunnel ID where the UI supports it).
-5. Choose/use channel `main` for the default stdio GPT-PC Bridge.
+4. Choose the exact Tunnel named in the handoff (or paste the exact Tunnel ID where supported).
+5. If the current UI exposes a Channel selector, choose `main`. If it does not, no separate Channel action is required because the stdio MCP is already bound to `main` by `tunnel-client`.
 6. Save/enable the binding with only the intended permissions.
 7. Return to a normal ChatGPT chat for E2E acceptance.
 ```
 
-Do not ask the user to guess which Tunnel or Channel to select. The provisioning agent already knows the exact deployment identity and must surface it.
+Do not ask the user to guess which Tunnel to select. The provisioning agent already knows the exact deployment identity and must surface it. Also report `channel=main` as routing evidence; only ask the user to select it when the current UI actually exposes a Channel selector.
 
 ## 4. Product terminology can drift
 

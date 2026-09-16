@@ -1,10 +1,10 @@
-# GPT-PC Bridge — Setup Contract
+# GPT-PC Bridge 窶・Setup Contract
 
 Status: **PARTIALLY_PROVEN**
 
 This is a provisioning contract for an AI agent. It is deliberately environment-aware rather than a brittle copy/paste installer.
 
-## Phase 0 — Observe before changing
+## Phase 0 窶・Observe before changing
 
 Collect, preferably in one aggregate read:
 
@@ -21,7 +21,7 @@ Collect, preferably in one aggregate read:
 
 Do not reinstall functioning dependencies simply because the recipe mentions them.
 
-## Phase 1 — Choose the shortest implementation path
+## Phase 1 窶・Choose the shortest implementation path
 
 Preferred order:
 
@@ -32,7 +32,7 @@ Preferred order:
 
 Reject any route that requires exposing an unauthenticated MCP listener directly to the public Internet when Secure MCP Tunnel is available.
 
-## Phase 2 — Build/configure local MCP
+## Phase 2 窶・Build/configure local MCP
 
 Transport selection:
 
@@ -60,7 +60,7 @@ read -> obtain sha256 -> write(expectedSha256=observed) -> verify new state
 
 Git commits should support an expected HEAD when stale concurrent changes matter.
 
-## Phase 3 — Local MCP verification before tunnel work
+## Phase 3 窶・Local MCP verification before tunnel work
 
 Do not debug account/tunnel configuration until the local MCP itself is valid.
 
@@ -74,7 +74,7 @@ Verify:
 6. output/time bounds behave as expected;
 7. protected secret/system locations do not become silently exposed through a generic helper path.
 
-## Phase 4 — Inspect current tunnel-client contract
+## Phase 4 窶・Inspect current tunnel-client contract
 
 Before constructing commands, run the installed binary's current help, for example:
 
@@ -94,7 +94,7 @@ tunnel-client admin tunnels list --help
 
 Do not assume the flags documented from the maintainer's observed `0.0.14` remain identical forever.
 
-## Phase 5 — Resolve Human Boundary for account credentials
+## Phase 5 窶・Resolve Human Boundary for account credentials
 
 The agent should explain exactly which account-side artifact is missing.
 
@@ -118,7 +118,7 @@ admin key   -> tunnel CRUD only
 
 Never reuse the admin key as the daemon credential merely for convenience.
 
-## Phase 6 — Provision the deployment Tunnel and Channel
+## Phase 6 窶・Provision the deployment Tunnel and Channel
 
 Follow the normative policy in [`tunnel-provisioning.md`](tunnel-provisioning.md).
 
@@ -161,7 +161,7 @@ For the currently observed full `tunnel-client`, prefer `runtimes connect` becau
 
 The currently observed provider behavior may require an Admin API key / Tunnels Manage authority for remote creation, while the long-lived runtime uses a separate runtime key with Tunnels Read + Use. Never put the Admin key into the daemon configuration.
 
-The observed provider also warns that a newly created Tunnel may need roughly 25–30 seconds before it is active/ready. Treat this as version-specific operational guidance. Recheck the **same** deployment instead of creating duplicates while propagation is pending.
+The observed provider also warns that a newly created Tunnel may need roughly 25窶・0 seconds before it is active/ready. Treat this as version-specific operational guidance. Recheck the **same** deployment instead of creating duplicates while propagation is pending.
 
 For the observed official client, the shortest stdio sample maps the command to `channel=main`:
 
@@ -183,7 +183,7 @@ mcp:
 
 Use a stable, simple channel name unless multiple distinct MCP endpoints are intentionally exposed.
 
-## Phase 7 — Store runtime credential safely
+## Phase 7 窶・Store runtime credential safely
 
 Do not place a plaintext API key in:
 
@@ -201,7 +201,7 @@ Supported options depend on the environment. Prefer, in order:
 
 On Windows, an implementation may use DPAPI/SecureString or another OS-protected mechanism, but the recipe does not require the maintainer's exact private implementation.
 
-## Phase 8 — Long-lived supervision
+## Phase 8 窶・Long-lived supervision
 
 With the observed official client, the preferred Codex-managed route is:
 
@@ -229,15 +229,15 @@ tunnel-client run --profile <profile>
 
 keep that distinction explicit.
 
-## Phase 9 — ChatGPT-side binding
+## Phase 9 窶・ChatGPT-side binding
 
 Only after tunnel runtime readiness is proven, follow [`chatgpt-binding.md`](chatgpt-binding.md).
 
-The provisioning agent should return the current ChatGPT connector settings link plus the exact Tunnel name/ID and expected `main` Channel, then leave only the interactive account/UI action to the user. On the maintainer's observed UI this can be only a few interactions, but UI wording is not part of the durable recipe.
+The provisioning agent should return the current ChatGPT connector settings link plus the exact Tunnel name/ID and confirm that the local MCP is bound to `channel=main`. Current official ChatGPT guidance selects the Tunnel or Tunnel ID; only instruct a separate `main` Channel selection when the current UI explicitly exposes such a field. On the maintainer's observed UI this can be only a few interactions, but UI wording is not part of the durable recipe.
 
 This remains a Human Boundary when the platform requires interactive account UI.
 
-## Phase 10 — End-to-end acceptance
+## Phase 10 窶・End-to-end acceptance
 
 From an ordinary ChatGPT conversation using the new binding:
 
@@ -252,7 +252,7 @@ From an ordinary ChatGPT conversation using the new binding:
 
 Only then mark `COMPLETE_VERIFIED`.
 
-## Phase 11 — Apply fast orchestration
+## Phase 11 窶・Apply fast orchestration
 
 After connectivity works, do not leave the bridge as a serial primitive tool collection.
 

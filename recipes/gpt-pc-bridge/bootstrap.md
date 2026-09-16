@@ -1,4 +1,4 @@
-# GPT-PC Bridge — Bootstrap from a Windows PC
+# GPT-PC Bridge 窶・Bootstrap from a Windows PC
 
 Status: **LOCAL BUILD/TRANSPORT PROVEN / CLEAN-ROOM ACCOUNT RUN PENDING**
 
@@ -178,7 +178,7 @@ The provisioning agent must hand the user the exact:
 - current official Help URL;
 - newly provisioned/verified Tunnel display name;
 - exact Tunnel ID;
-- expected `main` Channel.
+- local MCP routing channel (`main`); only a separate UI selection if the current ChatGPT surface exposes a Channel selector.
 
 Do not ask the user to guess among unrelated Tunnels in the same OpenAI account/workspace. Treat interactive account UI as a Human Boundary when it cannot be safely automated.
 

@@ -1,4 +1,4 @@
-# GPT-PC Bridge — Troubleshooting Without Hidden Fallback
+# GPT-PC Bridge 窶・Troubleshooting Without Hidden Fallback
 
 Status: **PARTIALLY_PROVEN**
 
@@ -71,7 +71,7 @@ Do not place an admin key into the daemon just to make a runtime-key error disap
 
 ## 4. Tunnel was just created but is not ready
 
-The observed `tunnel-client 0.0.14` admin help warns that new tunnel creation may need roughly 25–30 seconds before becoming active/ready.
+The observed `tunnel-client 0.0.14` admin help warns that new tunnel creation may need roughly 25窶・0 seconds before becoming active/ready.
 
 Therefore:
 
@@ -102,23 +102,24 @@ If process is not running, inspect runtime supervision/logs.
 If process is running but unhealthy, inspect profile/local MCP.
 If healthy but not ready, inspect control-plane/tunnel/channel readiness.
 
-## 6. Channel does not appear in ChatGPT
+## 6. Tunnel does not appear in ChatGPT
 
-Before changing ChatGPT configuration, confirm:
+Current official ChatGPT connector guidance is Tunnel-centric. Before changing ChatGPT configuration, confirm:
 
 - tunnel runtime is running/healthy/ready;
-- active profile contains the expected channel mapping;
-- profile points to the correct local MCP port/path;
-- tunnel/binding belongs to the correct account/org/workspace;
-- ChatGPT connector/binding UI is being opened while the tunnel is available, if current provider behavior requires it.
+- the Tunnel has the correct organization/workspace scope;
+- the connector operator has the required Tunnel Read + Use authority;
+- the Tunnel is not still within normal control-plane propagation delay;
+- active profile contains the expected local `main` channel mapping;
+- profile points to the correct local MCP command/port/path.
 
-Then refresh/reopen the supported binding surface. UI labels can change; use current provider behavior rather than old screenshots.
+Then refresh/reopen the supported binding surface and select the exact Tunnel or paste its Tunnel ID. If the current UI explicitly exposes a Channel selector, use `main`; otherwise no separate Channel action is required.
 
-## 7. Channel appears but tools are missing
+## 7. Tunnel is bound but tools are missing
 
 Likely layers:
 
-- wrong channel points to another MCP;
+- `main` is mapped to the wrong MCP;
 - local MCP tool registration changed;
 - stale binding/plugin metadata;
 - MCP server booted partially;
@@ -126,7 +127,7 @@ Likely layers:
 
 Compare local discovery output with the tool surface visible through ChatGPT.
 
-Do not infer success because the channel name is correct.
+Do not infer success merely because the Tunnel or Channel label is correct.
 
 ## 8. Reads work but mutations fail
 
